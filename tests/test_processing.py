@@ -1,24 +1,32 @@
 import pytest
 from src.processing import filter_by_state, sort_by_date
-@pytest.fixture
-def operations():
-    return [
-        {'id': 1, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
-        {'id': 2, 'state': 'CANCELED', 'date': '2018-06-30T02:08:58.425572'},
-        {'id': 3, 'state': 'EXECUTED', 'date': '2018-09-12T21:27:25.241689'},
-        {'id': 4, 'state': 'PENDING', 'date': '2018-10-14T08:21:33.419441'}
+from typing import Any
+
+@pytest.mark.parametrize(
+    'state, expected',
+    [
+        ('EXECUTED', 2),
+        ('CANCELED', 1),
+        ('PENDING', 1),
+        ('UNKNOWN', 0)
     ]
-def test_filter_by_state(operations):
-    executed = filter_by_state(operations, 'EXECUTED')
-    canceled = filter_by_state(operations, 'CANCELED')
-    pending = filter_by_state(operations, 'PENDING')
-    unknown = filter_by_state(operations, 'UNKNOWN')
-    assert len(executed) == 2
-    assert len(canceled) == 1
-    assert len(pending) == 1
-    assert unknown == []
-def test_sort_by_date(operations):
+)
+def test_filter_by_state(operations: list[dict[str, Any]],state: str, expected: int) -> None:
+    """Тест фильтрации по статусу"""
+    result = filter_by_state(operations, state)
+
+    assert len(result) == expected
+
+
+def test_sort_by_date_missing_argument(operations: list[dict[str, Any]]) -> None:
+    """Тест сортировки по дате без второго аргумента"""
     desc_sorted = sort_by_date(operations)
-    asc_sorted = sort_by_date(operations, reverse=False)
 
     assert desc_sorted[0]['date'] >= desc_sorted[-1]['date']
+
+
+def test_sort_by_date(operations: list[dict[str, Any]]) -> None:
+    """Тест сортировки по дате"""
+    asc_sorted = sort_by_date(operations, reverse=False)
+
+    assert asc_sorted[0]['date'] <= asc_sorted[-1]['date']
