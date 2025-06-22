@@ -20,7 +20,7 @@ def mask_account_card(info: str) -> str:
 def get_date(date_string: str) -> str:
     """Функция принимает на вход строку с датой"""
     date_object = datetime.fromisoformat(date_string)
-    formatted_date = date_object.strftime('%d.%m.%Y')
+    formatted_date = date_object.strftime("%d.%m.%Y")
 
     return formatted_date
 
