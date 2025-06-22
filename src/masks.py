@@ -31,7 +31,7 @@ def get_mask_account(card_account: str) -> str:
     return masked_account
 
 
-if __name__ == '__main__':
-    print(get_mask_account('12345678912345678912'))
-    print(get_mask_account(12345678912345678912))
+# if __name__ == '__main__':
+#     print(get_mask_account('12345678912345678912'))
+#     print(get_mask_account(12345678912345678912))
 

@@ -25,5 +25,5 @@ def get_date(date_string: str) -> str:
     return formatted_date
 
 
-if __name__ == '__main__':
-    print(get_date("2024-03-11T02:26:18.671407"))
+# if __name__ == '__main__':
+#     print(get_date("2024-03-11T02:26:18.671407"))
