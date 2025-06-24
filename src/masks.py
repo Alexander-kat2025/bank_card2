@@ -1,22 +1,33 @@
 def get_mask_card_number(card_number: str) -> str:
     """Функция маскировки номера карты"""
 
-    card_number = card_number.replace(" ", "")
-    masked_card_number = " ".join(card_number[i: i + 4] for i in range(0, len(card_number), 4))
-    masked_card_number_list = list(masked_card_number)
+    if card_number is None:
+        raise TypeError("Аргумент не передан")
+    if not isinstance(card_number, str):
+        raise TypeError("Переданный аргумент должен быть строкой")
+    if len(card_number) != 16:
+        raise ValueError("В номере карты должно быть 16 цифр")
 
-    for i in range(len(masked_card_number_list)):
-        if 7 <= i <= 13 and masked_card_number_list[i] != " ":
-            masked_card_number_list[i] = "*"
+    masked_card_number = f"{card_number[:4]} {card_number[4:6]}** **** {card_number[-4:]}"
 
-    masked_card_number = "".join(masked_card_number_list)
     return masked_card_number
 
 
 def get_mask_account(card_account: str) -> str:
     """Функция маскировки номера счета"""
 
-    card_account = card_account.replace(" ", "")
+    if card_account is None:
+        raise TypeError("Аргумент не передан")
+    if not isinstance(card_account, str):
+        raise TypeError("Переданный аргумент должен быть строкой")
+    if len(card_account) != 20:
+        raise ValueError("В номере счета должно быть 20 цифр")
 
-    last_part = str(card_account[-4:])
-    return f"**{last_part}"
+    masked_account = f"**{card_account[-4:]}"
+
+    return masked_account
+
+
+# if __name__ == '__main__':
+#     print(get_mask_account('12345678912345678912'))
+#     print(get_mask_account(12345678912345678912))

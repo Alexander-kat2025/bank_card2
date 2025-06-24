@@ -20,6 +20,10 @@ def mask_account_card(info: str) -> str:
 def get_date(date_string: str) -> str:
     """Функция принимает на вход строку с датой"""
     date_object = datetime.fromisoformat(date_string)
-    formatted_date = f"(ДД.ММ.ГГГГ) {date_object.strftime('%d.%m.%Y')}"
+    formatted_date = date_object.strftime("%d.%m.%Y")
 
     return formatted_date
+
+
+# if __name__ == '__main__':
+#     print(get_date("2024-03-11T02:26:18.671407"))

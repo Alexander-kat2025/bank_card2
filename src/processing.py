@@ -8,7 +8,9 @@ def filter_by_state(operations: list[dict[str, Any]], state: str = "EXECUTED") -
     """
     filtered_operations = []
     for operation in operations:
+
         if "state" in operation and operation["state"] == state:
+
             filtered_operations.append(operation)
     return filtered_operations
 
