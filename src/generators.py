@@ -21,10 +21,18 @@ def transaction_descriptions(transactions: List[Dict[str, Any]]) -> Iterator[str
         yield transaction["description"]
 
 
-def card_number_generator(start: int, end: int) -> str:
+def card_number_generator(start: int, stop: int) -> str:
     """
-       Генератор номеров банковских карт в формате "XXXX XXXX XXXX XXXX".
+       Генератор номеров банковских карт в формате "XXXX XXXX XXXX XXXX
+       с проверкой нумеровки карты не меньше 0 и не больше 9999999999999999".
 """
 
-    for num in range(start, end + 1):
-        yield ' '.join([f"{num:016d}"[i:i+4] for i in range(0, 16, 4)])
+    if start < 1:
+        raise ValueError("start должен быть не меньше 1")
+    if stop > 9999999999999999:
+        raise ValueError("stop должен быть не больше 9999999999999999")
+    if start > stop:
+        raise ValueError("start не может быть больше stop")
+
+    for number in range(start, stop + 1):
+        yield number
